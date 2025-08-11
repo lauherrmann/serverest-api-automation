@@ -1,0 +1,1 @@
+export { cadastrarUsuario } from './cadastrarUsuario';
