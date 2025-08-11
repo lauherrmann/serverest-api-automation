@@ -2,7 +2,7 @@ import { cadastrarUsuario } from "../../support/Requests/Usuario/cadastrarUsuari
 
 import gerarNomeAleatorio from "../../support/gerarNomeAleatorio";
 
-Given("que um payload JSON de cadastro de usuário seja configurado", () => {
+Given("que o usuário tenha preenchido todos os dados obrigatórios para cadastro", () => {
     const email = `${gerarNomeAleatorio()}@teste.com`; 
 
     cy.log(`E-mail gerado: ${email}`);
@@ -16,7 +16,7 @@ Given("que um payload JSON de cadastro de usuário seja configurado", () => {
     });
 });
 
-When("o usuário enviar uma requisição POST para o endpoint de cadastro de usuário com este payload", () => {
+When("solicitar a criação de sua conta", () => {
     cy.get('@cadastroUsuarioPayload').then(payload => {
         cadastrarUsuario(payload).then(res => {
             cy.wrap(res).as('responseCadastroUsuario');
@@ -24,7 +24,7 @@ When("o usuário enviar uma requisição POST para o endpoint de cadastro de usu
     });
 });
 
-Then("o sistema deve retornar status 201 com a mensagem: {string}", (mensagem) => {
+Then("o sistema deve confirmar o cadastro com status 201 e exibir a mensagem: {string}", (mensagem) => {
     cy.get('@responseCadastroUsuario').then(res => {
         expect(res.status).to.equal(201);
         expect(res.body.message).to.equal(mensagem);

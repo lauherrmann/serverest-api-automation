@@ -1,12 +1,11 @@
 Feature: Cadastro de usuário
 
-    Scenario Outline: Cadastrar usuário
-    Given que um payload JSON de cadastro de usuário seja configurado
-    When o usuário enviar uma requisição POST para o endpoint de cadastro de usuário com este payload
-    Then o sistema deve retornar status 201 com a mensagem: "<mensagem>"
+  Scenario Outline: Cadastro bem-sucedido
+    Given que o usuário tenha preenchido todos os dados obrigatórios para cadastro
+    When solicitar a criação de sua conta
+    Then o sistema deve confirmar o cadastro com status 201 e exibir a mensagem: "<mensagem>"
 
     Examples:
-    | mensagem                       |
-    | Cadastro realizado com sucesso |    
+      | mensagem                       |
+      | Cadastro realizado com sucesso |
 
-    

@@ -1,6 +1,6 @@
 import { login } from '../../support/Requests/Login/login';
 
-Given("que um payload de login seja configurado com usuário e senha",() =>{
+Given("que o usuário informa seu usuário e senha corretamente",() =>{
     cy.fixture('login').then(res => {
         res.email = Cypress.env('EMAIL_USUARIO');
         res.password = Cypress.env('SENHA_USUARIO');
@@ -9,7 +9,7 @@ Given("que um payload de login seja configurado com usuário e senha",() =>{
     })
 })
 
-When("o usuário enviar uma requisição POST para o endpoint de login com este payload",() =>{
+When("solicita o acesso ao sistema",() =>{
     cy.get('@loginPayload').then(payload => {
         login(payload).then(res => {
             cy.wrap(res).as('responseLogin');
@@ -17,7 +17,7 @@ When("o usuário enviar uma requisição POST para o endpoint de login com este 
     })
 })
 
-Then("o sistema deve retornar status 200 com a mensagem: {string}",(mensagem) =>{
+Then("o login deve ser realizado com sucesso e o sistema deve exibir a mensagem: {string}",(mensagem) =>{
     cy.get('@responseLogin').then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal(mensagem);
